@@ -1,9 +1,11 @@
-import Navigation from "../components/navigation"
+import { title } from "process"
 
+export const metadata = {
+  title: "Not found",
+}
 const NotFound = () => {
   return (
     <div>
-      <Navigation />
       <h1>Not Found</h1>
     </div>
   )
