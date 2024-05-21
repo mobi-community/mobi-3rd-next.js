@@ -1,0 +1,51 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+/.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Production
+build/
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+.vscode/
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript
+*.tsbuildinfo
+
+# React
+node_modules/
+public/static/
+build/
+dist/
+coverage/
