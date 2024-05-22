@@ -8,7 +8,7 @@ const Navigation = () => {
   
   const indicateCurPath = (path:string, pathAlias:string) => {
     let printed = pathAlias
-    if (curPath === path) pathAlias += " 👈"
+    if (curPath === path) printed += " 👈"
     return printed
   }
   
