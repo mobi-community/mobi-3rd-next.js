@@ -7,7 +7,7 @@ const Navigation = () => {
   const path = usePathname()
   return (
     <nav className={style.nav}>
-      <ul className={style.list}>
+      <ul >
         <li>
           <Link href={"/"}> Home</Link>
         </li>
