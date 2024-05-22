@@ -13,7 +13,7 @@ export const generateMetadata = async ({ params: { id } }: IParams) => {
   }
 }
 
-const MovieDetail = async ({ params: { id } }: IParams) => {
+const MovieDetail =  ({ params: { id } }: IParams) => {
   return (
     <div>
       <Suspense fallback={<h1>Loading Movie Info</h1>}>
