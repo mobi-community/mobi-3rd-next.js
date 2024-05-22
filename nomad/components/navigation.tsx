@@ -1,18 +1,18 @@
 "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import style from "../styles/navigation.module.css"
 
 const Navigation = () => {
   const path = usePathname()
   return (
-    <nav>
-      <ul>
+    <nav className={style.nav}>
+      <ul className={style.list}>
         <li>
-          <Link href={"/"}> Home</Link> {path === "/" ? "Check" : ""}
+          <Link href={"/"}> Home</Link>
         </li>
         <li>
           <Link href={"/about-us"}>About Us</Link>
-          {path === "/about-us" ? "Check" : ""}
         </li>
       </ul>
     </nav>
