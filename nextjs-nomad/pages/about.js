@@ -1,4 +1,11 @@
+import Seo from "@/component/SEO"
+
 const About = () => {
-  return <h2>About</h2>
+  return (
+    <div>
+      <Seo title={"About"} />
+      <h1>About </h1>
+    </div>
+  )
 }
 export default About
