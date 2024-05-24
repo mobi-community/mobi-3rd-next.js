@@ -234,3 +234,163 @@ export default function Custom500() {
 `Next.js`의 파일 기반 라우팅 시스템은 디렉토리와 파일 구조를 기반으로 라우트를 자동으로 생성하므로 설정이 간편하다.
 정적 페이지, 동적 페이지, 중첩된 라우트, API 엔드포인트 등을 쉽게 구성할 수 있어 강력하면서도 사용하기 쉬운 라우팅 시스템을 제공한다.
 이러한 유연성을 통해 다양한 웹 애플리케이션 요구사항을 효과적으로 충족시킬 수 있다.
+
+# TASK 3
+
+### Next.js의 폰트와 이미지 최적화
+
+`Next.js`는 폰트 최적화를 위해 `Google Fonts`와 같은 외부 폰트를 손쉽게 불러오고, 최적화할 수 있는 도구를 제공한다.
+`Next.js`13부터 도입된 `next/font` 패키지를 사용하면, 로드 타임을 줄이고 `CLS(Cumulative Layout Shift)`를 최소화할 수 있다.
+
+## 1.폰트 최적화
+
+### Google Fonts 사용하기
+
+`Next.js`13에서는 `next/font/google`패키지를 통해 `Google Fonts`를 쉽게 사용할 수 있다.
+
+```jsx
+// pages/_app.js
+import { Inter } from "next/font/google";
+const inter = Inter({
+    subsets: ["latuin"],
+    display: "swap",
+});
+function MyApp({ Component, pageProps }) {
+    return (
+        <div className={inter.calssName}>
+            <Component {...pageProps} />
+        </div>
+    );
+}
+export default MyApp;
+```
+
+-   `subsets`: 필요한 글리프 하위 집합만 로드하여 폰트 파일 크기를 줄인다.
+-   `display`: `swap`값을 사용하여 `FOUT(Flash of Unstyled Text)` 현상을 방지한다.
+
+### 로컬 폰트 사용하기
+
+로컬 폰트를 사용하는 경우, `next/font/local` 패키지를 사용하여 폰트를 불러올 수 있다.
+
+```jsx
+// pages/_app.js
+import localFont from "next/font/local";
+const myFont = localFont({
+    src: "../public/fonts/MyFont.woff2",
+    display: "swap",
+});
+function MyApp({ component, pageProps }) {
+    return (
+        <div className={myFont.className}>
+            <Component {...pageProps} />
+        </div>
+    );
+}
+export default MyApp;
+```
+
+## 2.이미지 최적화
+
+`Next.js`는 `next/image`컴포넌트를 통해 이미지 최적화 기능을 제공한다.
+이 컴포넌트는 이미지의 크기를 자동을 조절하고, 적절한 포맷으로 변환하여 최적의 성능을 유지한다.
+또한, 레이지 로딩과 같은 추가적인 최적화 기능도 지원한다.
+
+### 기본 사용법
+
+-   `next/image` 컴포넌트를 사용하여 이미지를 최적화할 수 있다.
+
+```jsx
+import Image from "next/image";
+function HomePage() {
+    return (
+        <div>
+            <Image
+                src="/images/my-image.jpg"
+                alt="My Image"
+                width={500}
+                height={300}
+                layout="responsive"
+            />
+        </div>
+    );
+}
+export default HomPage;
+```
+
+-   `src`: 이미지 소스 `URL`
+-   `alt`: 이미지 대체 텍스트
+-   `width`: 이미지 고유 너비
+-   `height`: 이미지의 고유 높이
+-   `layout`: `fixed`,`intrinsic`,`responsive`,`fill`중 하나를 선택하여 레이아웃을 결정한다
+
+### 레이지 로딩
+
+`next/image`컴포넌트는 기본적으로 레이지 로딩을 지원하여 페이지 로딩 성능을 최적화 한다.
+화면에 보이지 않는 이미지는 필요할 때 로드된다.
+
+### 자동 포맷 변환
+
+`Next.js`는 `WebP`와 같은 최신 이미지 포맷으로 자동 변환하여 이미지 파일 크기를 줄이고, 로딩 속도를 향상시킨다.
+이는 브라우저 호환성에 따라 자동으로 적용된다
+
+### 이미지 크기 조절
+
+`next/image`는 다양한 크기로 이미지로 제공하여, 필요에 따라 적절한 크기의 이미지를 로드한다.
+이를 통해 화면 크기에 맞는 최적화된 이미지를 제공한다
+
+```jsx
+import Image from "next/image";
+function HomePage() {
+    return (
+        <div>
+            <Image
+                src="/images/my-image.jpg"
+                alt="My Image"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                width={800}
+                height={600}
+            />
+        </div>
+    );
+}
+export default HomePage;
+```
+
+-   `size`: 미디어 쿼리를 사용하여 브라우저가 적절한 이미지 크기를 선택할 수 있도록 도와준다
+
+### 외부 이미지 사용
+
+외부 도메인의 임지를 사용할 경우, `next.config.js`파일에 도메인을 추가해야 한다.
+
+```jsx
+// next.config.js
+module.exports = {
+    images: {
+        domains: ["example.com"],
+    },
+};
+```
+
+```jsx
+import Image from "next/image";
+
+function HomePage() {
+    return (
+        <div>
+            <Image
+                src="https://example.com/images/my-image.jpg"
+                alt="External Image"
+                width={500}
+                height={300}
+            />
+        </div>
+    );
+}
+
+export default HomePage;
+```
+
+### 결론
+
+`Next.js`는 폰트와 이미지 최적화를 위한 가력한 도구와 기능을 제공하여 웹 애플리케이션의 성능을 크게 향상시킬 수 있다.
+`next/font`패키지를 통해 폰트를 최적화하고, `next/image` 컴포넌트를 사용하여 이미지를 최적화함으로써 더 빠르고 사용자 친화적인 웹사이트를 만들수 있다.
