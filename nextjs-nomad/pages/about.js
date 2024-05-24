@@ -1,4 +1,4 @@
-import Seo from "@/component/SEO"
+import Seo from "../component/Seo"
 
 const About = () => {
   return (

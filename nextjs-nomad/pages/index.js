@@ -1,23 +1,27 @@
-import Seo from "@/component/SEO"
+import Seo from "../component/Seo"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
 export default function Home({ results }) {
   const router = useRouter()
-  const onClick = (id) => {
-    router.push(`movies/${id}`)
+  const onClick = (id, title) => {
+    router.push(`/movies/${title}/${id}`)
   }
   return (
     <div className="container">
       <Seo title="Home" />
 
       {results?.map((movie) => (
-        <div className="movie" key={movie.id} onClick={() => onClick(movie.id)}>
+        <div
+          className="movie"
+          key={movie.id}
+          onClick={() => onClick(movie.id, movie.original_title)}
+        >
           <img
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             className="w-[10rem]"
           />
-          <Link href={`movies/${movie.id}`}>
+          <Link href={`/movies/${movie.original_title}/${movie.id}`}>
             <h4>{movie.original_title}</h4>
           </Link>
         </div>

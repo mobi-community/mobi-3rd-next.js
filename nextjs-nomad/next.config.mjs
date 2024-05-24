@@ -1,5 +1,3 @@
-import { sources } from 'next/dist/compiled/webpack/webpack'
-
 /** @type {import('next').NextConfig} */
 const API_KEY = process.env.API_KEY
 const nextConfig = {
@@ -20,9 +18,9 @@ const nextConfig = {
         destination: `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`,
       },
       {
-        source:"/api/movie/:id",
-        destination:
-      }
+        source: "/api/movie/:id",
+        destination: `https://api.themoviedb.org/3/movie/:id?api_key=${API_KEY}`,
+      },
     ]
   },
 }
