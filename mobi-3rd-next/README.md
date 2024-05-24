@@ -60,3 +60,177 @@
 `Next.js`는 `React`를 기반으로 하여 서버 사이트 렌더링, 정적 사이트 생성, 간편한 라우팅, API 라우트,
 퍼포먼스 최적화, `SEO` 향상 등의 기능을 제공하는 강력한 웹 프레임워크이다.
 이를 통해 동적 페이지와 정적 페이지를 함께 사용할 수 있어 유연한 웹 애플리케이션을 구축할 수 있다.
+
+# TASK 2
+
+### Next.js 파일 기반 라우팅 시스템
+
+`Next.js`의 파일 기반 라우팅 시스템은 매우 직관적이로 사용하기 쉽다.
+`page`디렉토리 내의 파일 및 디렉토리 구조가 자동으로 `URL`라우트로 매핑된다.
+이 시스템을 통해 설정 파일 없이도 라우트를 구성할 수 있으며, 동적 라우팅도 간편하게 구현할 수 있다.
+
+### 1.기본 페이지 라우팅
+
+`pages`디렉토리 내의 각 파일은 자동으로 해당 파일 이름에 매핑되는 경로를 생성한다
+
+>
+
+-   기본 파일 라우팅
+    -   `pages/index.js` -> `/`
+    -   `pages/about.js` -> `about`
+    -   `pages/contact.js` -> `contact`
+
+```jsx
+//pages/index.js
+export default function Home() {
+	return <h1>Home Page</h1>;
+}
+//pages/about.js
+export default function About(){
+	return <h1>About Page</h1>;
+}
+//pages/contact.js
+export default function Contact(){
+	return <h1>Contact Page</h1>;
+}
+```
+
+### 2.중첩 라우팅
+
+서브 디렉토리를 사용하여 중첩된 경로를 쉽게 생성할 수 있다.
+
+>
+
+-   중첩 파일 라우팅
+    -   `pages/blog/index.js`->`/blog`
+    -   `pages/blog/post1.js`-> `/blog/post1`
+    -   'pages/blog/post2.js'-> `.blog/post2`
+
+```jsx
+// pages/blog/index.js
+export default function Blog(){
+	return <h1>Blog Home</h1>
+}
+// pages/blog/post1.js
+export default function Post1(){
+	return <h1>Blog Post 1</h1>
+}
+// pages/blog/post2.js
+export default function Post2(){
+	return <h1>Blog Post 2</h1>
+}
+```
+
+### 2.동적 라우팅
+
+동적 라우팅을 위해 대괄호 `[]`를 사용하여 파일 이름을 지정한다.
+이를 통해 동적인 `URL` 매개변수를 처리할 수 있다.
+
+>
+
+-   동적 라우트
+    -   `pages/posts/[id].js` -> `posts/1`,`posts/2`,`posts/abc`등
+
+```jsx
+// pages/posts/[id].js
+import { useRouter } from "next/router";
+export default function Post() {
+    const router = useRouter();
+    const { id } = router.query;
+    return <h1>Post ID: {id}</h1>;
+}
+```
+
+### 3.다중 동적 세그먼트
+
+다중 동적 세그먼트를 사용하여 보다 복잡한 라우팅 구조를 만들 수 있다.
+
+>
+
+-   다중 동적 세그먼트
+    -   `pages/blog/[category]/[postId].js` -> `/blog/tech/1`,`/blog/life/2`
+
+```jsx
+// pages.blog/[category]/[postId].js
+import { useRouter } from "next/router";
+export default function Post() {
+    const router = useRouter();
+    const { category, postId } = router.query;
+    return (
+        <div>
+            <h1>Category: {category}</h1>
+            <h2>Post ID: {postId}</h2>
+        </div>
+    );
+}
+```
+
+### 5.캐치 올 라우트
+
+캐치 올 라우트는 특정 경로 이하의 모든 경로를 캡처한다.
+`[...]`또는 `[[...]]` 형태로 파일을 지정한다.
+`[...param].js`는 매개변수를 필수로, `[[...param]].js`는 선택적으로 처리한다
+
+>
+
+-   캐치 올 라우트
+    -   `pages/docs/[...slug].js` -> `/docs/a`,`/docs/a/b`,`/docs/a/b/c`등
+
+```jsx
+// pages/docs/[...slug].js
+import { useRouter } from "next/router";
+export default function Docs() {
+    const router = useRouter();
+    const { slug } = router.query;
+    return <h1>Docs: {slug ? slug.join("/") : "Home"}</h1>;
+}
+```
+
+### 6.API 라우트
+
+`Next.js`는 `API` 라우트를 통해 서버리스 함수 엔드포인트를 생성할 수 있다.
+`pages/api` 디렉토리 내의 파일이 `API` 엔드포인트로 매핑된다.
+
+>
+
+-   API 라우트
+    -   `pages/api.hello.js` -> `/api/hello`
+
+```jsx
+// pages/api/hello.js
+export default function handler(req, res) {
+    res.status(200).json({ text: "Hello, world!" });
+}
+```
+
+### 7.예외 처리
+
+`Next.js`는 기본적으로 `404`페이지와 `500`페이지를 처리할 수 있도록 `pages/404.js`와 `pages/500.js` 파일을 사용할 수 있다
+
+>
+
+-   404 페이지
+    -   `pages/404.js` -> 모든 없는 페이지에 대해 `/404`
+
+```jsx
+// pages/404.js
+export default function Custom404() {
+    return <h1>404 - Page Not Found</h1>;
+}
+```
+
+-   500 페이지
+    -   `pages/500.js`-> 서버 오류 발생 시 `/500`
+
+```jsx
+// pages/500.js
+export default function Custom500() {
+    return <h1>500 - Server Error</h1>;
+}
+```
+
+### 결론
+
+`Next.js`의 파일 기반 라우팅 시스템은 디렉토리와 파일 구조를 기반으로 라우트를 자동으로 생성하므로 설정이 간편하다.
+정적 페이지, 동적 페이지, 중첩된 라우트, API 엔드포인트 등을 쉽게 구성할 수 있어 강력하면서도 사용하기 쉬운 라우팅 시스템을 제공한다.
+이러한 유연성을 통해 다양한 웹 애플리케이션 요구사항을 효과적으로 충족시킬 수 있다.
