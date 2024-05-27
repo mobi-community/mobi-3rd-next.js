@@ -1,9 +1,11 @@
 import { Metadata } from "next"
-import PostIdArr from "./post-id"
+import dynamic from "next/dynamic"
 
 export const metadata: Metadata = {
   title: "Home",
 }
+
+const NoSSRPost = dynamic(() => import("./post-id"), { ssr: false })
 
 const Home = () => {
   return (
@@ -13,7 +15,7 @@ const Home = () => {
     >
       <h1>Welcome Home</h1>
       <h2>Check Some Post</h2>
-      <PostIdArr />
+      <NoSSRPost />
     </div>
   )
 }

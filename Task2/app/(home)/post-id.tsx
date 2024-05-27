@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation"
 
 const PostIdArr = () => {
   const arr = Array.from({ length: 8 }, () => generateNumber())
+
   const router = useRouter()
+
   const onClickBtn = (num) => {
     router.push(`/post/${num}`)
   }
