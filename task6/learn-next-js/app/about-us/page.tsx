@@ -1,12 +1,11 @@
 export const metadata = {
-    title: "About us ",
-    description: "The best movis on the best framework",
+  title: 'AbuotUs',
 };
 
-export default function aboutUs() {
-    return (
-        <div>
-            <h1>About us!</h1>
-        </div>
-    );
+export default function AboutUs() {
+  return (
+    <div>
+      <h1>AboutUs</h1>
+    </div>
+  );
 }
