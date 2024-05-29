@@ -10,69 +10,68 @@
 - ```_app.js```파일 아래에 글꼴을 추가하여 사용할 수 있다.
 > ```tsx
 >import { Inter } from 'next/font/google'
-// If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ['latin'] })
-export default function MyApp({ Component, pageProps }) {
-  return (
-    <main className={inter.className}>
-      <Component {...pageProps} />
-    </main>
-  )
-}
+>// If loading a variable font, you don't need to specify the font weight
+>const inter = Inter({ subsets: ['latin'] })
+>export default function MyApp({ Component, pageProps }) {
+  >return (
+   > <main className={inter.className}>
+    >  <Component {...pageProps} />
+    ></main> )
+>}```
 >
->```
 
 - 배열을 사용하여 여러 폰트 스타일을 지정할 수 있다.
-> ```tsx
-const roboto = Roboto({
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  display: 'swap',
-})
->
+> ```jsx
+>const roboto = Roboto({
+  >weight: ['400', '700'],
+  >style: ['normal', 'italic'],
+  >subsets: ['latin'],
+  >display: 'swap',
+>})```
+
 
 ### 🔹 로컬 폰트 사용
 - ```next/font/local```을 사용하여 로컬에 호스팅된 폰트를 최적화된 방식으로 불러와서 사용할 수 있다.
 
 - 폰트를 분할하여 필요한 부분만 로딩한다.
->```tsx
-import localFont from 'next/font/local'
->
-> const myFont = localFont({ src: './my-font.woff2' })
->
-export default function MyApp({ Component, pageProps }) {
-  return (
-    <main className={myFont.className}>
-      <Component {...pageProps} />
-    </main>
-  )
->}
+>```jsx
+>import localFont from 'next/font/local'
+ >const myFont = localFont({ src: './my-font.woff2' })
+ >export default function MyApp({ Component, pageProps }) {
+  >return (
+   > <main className={myFont.className}>
+    >  <Component {...pageProps} />
+    ></main>
+  >)}```
+  > 
+
+
 - 공식 홈페이지에 따르면 variable fonts 와 같이 사용하는걸 추천한다고 한다. 
 [variable fonts 가 무엇인고? 클릭!](https://fonts.google.com/variablefonts)
-- 내가 나중에 볼 용도로 작성하는 ```Tailwind-CSS``` 와 같이 쓰려면 아래와 같이 ```app.js```에 작성한뒤,
+- 내가 나중에 볼 용도로 작성하는 ```Tailwind-CSS``` 와 같이 쓰려면 아래와 같이 ```app.js```에 작성한뒤, ```tailwind.config.js```파일에 추가해주면 된다.
 
-```tsx
-import { Inter } from 'next/font/google'
- 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
- 
-export default function MyApp({ Component, pageProps }) {
+>```jsx
+>//app.js
+>import { Inter } from 'next/font/google'
+> 
+>const inter = Inter({
+ > subsets: ['latin'],
+  >variable: '--font-inter',
+>})
+ >
+>export default function MyApp({   Component, pageProps }) {
   return (
-    <main className={`${inter.variable} font-sans`}>
-      <Component {...pageProps} />
-    </main>
-  )
-}
-```
+   <main className={`${inter.variable} font-sans`}>
+    <Component {...pageProps} />
+    </main> )}```
+    >
 
-```tailwind.config.js```파일에 추가해주면 된다.
-```tsx
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+
+
+>```tsx
+>//tailwind.config.js
+>/** @type {import('tailwindcss').Config} */
+>module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -89,6 +88,7 @@ module.exports = {
   plugins: [],
 }
 ```
+>
 
 ### 🔹 Zero Layout Shift ?!
 - NextJS13에서 새롭게 추가된 기능이다.
@@ -106,21 +106,20 @@ module.exports = {
 - 사용방법은 아래 코드와 같다.
 
 > ```tsx
-import { GoogleFont } from 'next/font/google';
+>import { GoogleFont } from 'next/font/google';
 >
-const roboto = GoogleFont({
-  family: 'Roboto',
-  subsets: ['latin'],
-  adjustFallbackFont: true, // 이 옵션을 활성화
-});
->
-export default function MyApp({ Component, pageProps }) {
-  return (
-    <div className={roboto.className}>
-      <Component {...pageProps} />
-    </div>
-  );
-}
+>const roboto = GoogleFont({
+  >family: 'Roboto',
+  >subsets: ['latin'],
+  >adjustFallbackFont: true, // 이 옵션을 활성화
+  >});
+>export default function MyApp({ Component, pageProps }) {
+  >return (
+   > <div className={roboto.className}>
+    >  <Component {...pageProps} />
+    > </div>
+  >);
+>}
 >```
 
 - 이렇게 설정하면, Next.js는 폰트 로드 시 폴백 폰트의 스타일을 조정하여 레이아웃 이동을 최소화시킨다.
