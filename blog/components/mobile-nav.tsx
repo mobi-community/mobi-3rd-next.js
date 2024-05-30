@@ -1,9 +1,13 @@
 "use client"
 
-import { useState } from "react"
-import { Sheet, SheetTrigger } from "./ui/sheet"
+import { ReactNode, useState } from "react"
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { Button } from "./ui/button"
 import { Menu } from "lucide-react"
+import Link, { LinkProps } from "next/link"
+import { useRouter } from "next/navigation"
+import { Icons } from "./icons"
+import { siteConfig } from "@/config/stie"
 
 export function MobileNav() {
   const [open, setOpen] = useState(false)
@@ -16,6 +20,56 @@ export function MobileNav() {
           <span className="sr-only">Toggle Theme</span>
         </Button>
       </SheetTrigger>
+      <SheetContent side={"right"}>
+        <MobileLink
+          href={"/"}
+          className="flex items-center"
+          onOpenChange={setOpen}
+        >
+          <Icons.logo className="mr-2 h-4 w-4" />
+          <span className="font-bold">{siteConfig.name}</span>
+        </MobileLink>
+        <div className="flex flex-col gap-3 mt-3">
+          <MobileLink onOpenChange={setOpen} href={"/blog"}>
+            Blog
+          </MobileLink>
+          <MobileLink onOpenChange={setOpen} href={"/about"}>
+            About
+          </MobileLink>
+          <Link target="_blank" href={siteConfig.link.github}>
+            GitHub
+          </Link>
+        </div>
+      </SheetContent>
     </Sheet>
+  )
+}
+
+type MobileLinkProps = LinkProps & {
+  children: ReactNode
+  onOpenChange?: (open: boolean) => void
+  className?: string
+}
+
+const MobileLink = ({
+  href,
+  onOpenChange,
+  children,
+  className,
+  ...props
+}: MobileLinkProps) => {
+  const router = useRouter()
+  return (
+    <Link
+      href={href}
+      onClick={() => {
+        router.push(href.toString())
+        onOpenChange?.(false)
+      }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </Link>
   )
 }
