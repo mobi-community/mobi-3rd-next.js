@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+	.scrollbar::-webkit-scrollbar {
+		width: 7px;
+	}
+
+	.scrollbar::-webkit-scrollbar-track {
+		@apply bg-blue-950;
+		border-radius: 100vh;
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb {
+		@apply bg-blue-600;
+		border-radius: 100vh;
+	}
+}
+@layer base {
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+
+		@apply scrollbar;
+		@apply text-black;
+	}
+	html {
+		@apply bg-[#121212];
+		font-size: 62.5%;
+	}
+	main {
+		@apply w-auto;
+		@apply h-auto;
+	}
+}
