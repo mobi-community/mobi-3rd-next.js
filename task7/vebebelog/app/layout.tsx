@@ -1,8 +1,7 @@
+import {Header} from '@/components/molecule/header'
 import type {Metadata} from 'next'
-import {Inter} from 'next/font/google'
+import type {ReactNode} from 'react'
 import '../global.css'
-
-const inter = Inter({subsets: ['latin']})
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -12,11 +11,14 @@ export const metadata: Metadata = {
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: React.ReactNode
+	children: ReactNode
 }>) {
 	return (
-		<html lang='en'>
-			<body className={inter.className}>{children}</body>
+		<html lang='en' className='h-full w-full'>
+			<body>
+				<Header />
+				{children}
+			</body>
 		</html>
 	)
 }
