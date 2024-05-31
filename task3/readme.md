@@ -137,3 +137,72 @@ export default function MyApp({ Component, pageProps }) {
 벨로그에 작성한것 외에도 공식홈페이지에 다양한 방법으로 예시가 구현되어있으니 꼭 꼭 꼭 참조하시길바란다.
 
 [참조: NextJS 공식페이지](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts)
+
+## 🟣 Next JS의 이미지 최적화
+
+- 이미지 구성 요소에는 src, width, height및 속성이 필요하다.
+```tsx
+import Image from 'next/image'
+ 
+export default function Page() {
+  return (
+    <div>
+      <Image
+        src="/profile.png"
+        width={500}
+        height={500}
+        alt="Picture of the author"
+      />
+    </div>
+  )
+}
+```
+
+### 🔹 Next/image에서 제공하는 기능
+- Next JS에서 제공하는 기능은 다음과 같다.
+
+> - lazy loading
+> - 이미지 사이즈 최적화
+> - placeholder 제공
+
+#### Lazy loading
+- ```lazy loading```는 이미지 로드하는 시점을 필요할 때까지 지연시키는 기술을 의미한다.
+- ```Next/Image```를 사용하게 되면 자동으로 lazy loading이 적용된다.
+- Image 컴포넌트의 ```priority```라는 prop을 ```true```로 설정하거나, loading prop에 ```“eager” ```값을 설정하여 사용한다.
+
+```tsx
+import Image from 'next/image'
+ 
+export default function Page() {
+  return (
+    <div>
+      <Image
+        src="/profile.png"//이미지 파일
+        width={500}//fill속성 사용시 필수X
+        height={500}//fill속성 사용시 필수X
+        priority={true}
+        alt="Picture of the author" //화면 판독기 및 검색 엔진의 이미지를 설명하는 데 사용 -> 이미지로드 오류 발생시 대체 텍스트
+      />
+    </div>
+  )
+}
+```
+> **fill속성??**
+> - 이미지가 상위 요소를 채우도록 하는 ```boolean```이다.
+> - ```width ```와 ```height```를 알수 없을때 유용하게 사용된다.
+> - 상위 요소는 , 또는 스타일을 할당 해야한다 .```position: "relative"position: "fixed"position: "absolute"```
+
+> **priority속성??**
+> - ```true```인 경우 이미지는 높은 우선순위 및 사전 로드 로 간주한다.
+> - 콘텐츠가 포함된 최대 페인트(LCP) ```priority``` 로 감지된 모든 이미지에 이 속성을 사용해야한다.
+> - 이미지가 스크롤 없이 볼 수 있는 부분 위에 표시되는 경우에만 사용해야한다.
+> - 기본값은 ```false``` 이다.
+
+#### 이미지 사이즈 최적화
+- Next/Image는 디바이스 크기 별로 srcSet을 미리 지정해두고, 디바이스에 맞는 이미지를 다운로드할 수 있게 지원한다. 
+- NEXT.JS는 요청이 들어왔을 때, dist 폴더 밑에 cache/images 폴더에 최적화한 이미지를 동적으로 만들고, 이후에 동일한 요청에 대해서는 이미 만들어 놓은 최적화한 이미지를 캐시로서 재사용한다.
+
+#### placeholder 제공
+```tsx
+placeholder = 'empty' // "empty" | "blur" | "data:image/..."
+```
