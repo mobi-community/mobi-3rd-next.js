@@ -30,7 +30,12 @@ module.exports = {
 		sourceType: 'module',
 		project: ['tsconfig.json'],
 	},
-	plugins: ['react', '@typescript-eslint', 'jsx-a11y'],
+	plugins: [
+		'react',
+		'@typescript-eslint',
+		'jsx-a11y',
+		'@typescript-eslint/parser',
+	],
 	rules: {
 		'@typescript-eslint/consistent-type-definitions': ['error', 'type'], // 타입 선언시, type-alias 사용
 		'@typescript-eslint/no-unused-vars': 'warn', // 사용하지 않는 변수 노란줄 경고

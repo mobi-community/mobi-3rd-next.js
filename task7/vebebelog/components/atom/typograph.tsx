@@ -1,3 +1,4 @@
+import {cn} from '@/lib/tailwind-css'
 import type {VariantProps} from 'class-variance-authority'
 import {cva} from 'class-variance-authority'
 import type {HTMLAttributes} from 'react'
@@ -22,8 +23,6 @@ const typographyVariants = cva('whitespace-pre-line text-wrap', {
 			subLabel2: 'font-semibold text-[14px] leading-[155%]',
 			caption1: 'font-medium text-[12px] leading-[155%]',
 			caption2: 'font-medium text-[8px] leading-[155%]',
-			header1:
-				'font-insungit font-medium text-14px leading-[145%] text-blue-50',
 		},
 	},
 	defaultVariants: {
@@ -31,13 +30,18 @@ const typographyVariants = cva('whitespace-pre-line text-wrap', {
 	},
 })
 
-interface TypographyProps
-	extends HTMLAttributes<HTMLParagraphElement>,
-		VariantProps<typeof typographyVariants> {}
+type TypographyProps = HTMLAttributes<HTMLParagraphElement> &
+	VariantProps<typeof typographyVariants>
 
 export const Typography = forwardRef<HTMLParagraphElement, TypographyProps>(
 	({className, type, ...props}, ref) => {
-		return <p className={typographyVariants({type})} ref={ref} {...props} />
+		return (
+			<p
+				className={cn(typographyVariants({type}), className)}
+				ref={ref}
+				{...props}
+			/>
+		)
 	},
 )
 Typography.displayName = 'Typography'
