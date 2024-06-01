@@ -1,33 +1,51 @@
-```md
-next와 react의 차이점은 무엇일까요!
-아래에 보이는 4가지의 큰 관점으로 차이점을 알아봅시다
+# TASK.1 NextJS 똑바로 알기
 
-# 1 next === react (!!?)
-- next는 react를 활용하여 짜여진 프레임워크입니다.
-- 따라서 next에서 활용하는 문법은 거의 react와 99% 유사하며
-- 실제 next의 편의성만을 사용하기 위하여 react와 유사하게 사용하는 기업들도 많아요!
+## CSR VS SSR
 
-# 2 server side rendering, client side rendering
-- 기존에 저희가 사용하던 react는 대표적인 CSR 관련 프레임워크입니다.
-- 그렇다면, CSR은 무엇이고 SSR은 무엇일까요?
-- 단순한 랜더링 시점에서의 차이뿐만이 아니라 명확하게 SSR과 CSR의 장단점을 비교해보세요!
-
-# 3 convenience
-- 파일 기반 라우트 시스템
-- 이미지, 폰트 최적화 자동으로 지원!?
-
-# 4 full stack frame-work
-- next-js는 frontend가 아닌 full-stack 프레임워크에요!
-- 사실 next-js를 쓰는 대부분의 프로젝트는 frontend 뿐만이 아닌 풀스택으로 더 많은 활용을 해요 :)
-- next-js의 api route를 알아보고 이를 한번 사용해보는 것도 좋은 시도일 것 같아요
+```
+렌더링은 code -> ui 변환 과정
 ```
 
+### CSR
+- (* client-side-rendering)
+- client 가 application 에 접속하면, server 는 화면을 그릴 재료를 응답해준다.
+- server 에서 받은 js 가 실행한 뒤, html 을 만들고 출력한다.
+- React는 대표적인 CSR 라이브러리다.
+
+#### 장점
+- 유저와의 interaction 이 빠르고 부드럽다.
+- 한번 다운로드된 스크립트는 계속 client 에서 관리하므로, 첫 로드 후부턴 빠르게 rendering 된다.
+
+#### 단점:
+- seo (검색엔진최적화) 에 불리하다.
+  - 대부분의 검색엔진은 js 실행 이전의 html 정보만 수집한다.
+  - js 실행이 이전까지, 출력되는 것은 빈 html
+- 초기로딩이 느리다.
+  - 초기 자바스크립트 번들을 다운로드하고 실행해야 하므로 초기 로딩이 느려질 수 있다.
+
+### SSR 
+- (* server-side-rendering)
+- client 요청에 맞춰, sever 에서 html 파일을 만들어 응답하는 방식이다.
+- Next.js는 SSR을 지원한다.
+
+#### 장점
+- js 실행 이전이라도, 사용자는 서비스 view 를 볼 수 있다.
+- seo 에 유리하다.
+
+#### 단점:
+- 서버와 클라이언트 간의 상태 관리가 복잡해질 수 있다.
 
 
-<br/>
 
-# Next 란 무엇인고?
+## Convenience
 
-1. SEO 최적화
+### 파일 기반 라우트 시스템
+- App Router 기준으로, app 폴더 하위의 각 폴더/파일이 세그먼트가 되어 url 경로가 완성된다.
+- 이를 위해, 페이지 컴포넌트에 대한 예약어가 미리 지정되어 있다. (`page`, `layout` 등)
 
-2. 
+
+### 이미지 및 폰트 최적화
+- 이미지 및 폰트 최적화를 자동으로 지원한다.
+- next/image 컴포넌트를 사용하면 자동으로 이미지 크기를 조정하고 최적화할 수 있다.
+- 구글 폰트를 내장하고 있어 빠른 로드를 가능하게 한다.
+- auto-scaling 기능이 있어, 대체 폰트 -> 적용 폰트로 전환 과정에서 불필요한 레이아웃 이동을 막을 수 있다.
