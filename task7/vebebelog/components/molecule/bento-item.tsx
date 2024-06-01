@@ -8,9 +8,12 @@ type TBentoItem = HTMLAttributes<HTMLParagraphElement> & {
 	gitmoji: TGitmojiInfo
 }
 
-export function BentoItem({gitmoji}: TBentoItem) {
+export function BentoItem({gitmoji, ...props}: TBentoItem) {
 	return (
-		<article className='grid w-[26rem] cursor-pointer grid-rows-[18rem_20rem] overflow-hidden rounded-lg bg-[#262626] transition-all hover:scale-110'>
+		<article
+			{...props}
+			className='grid w-[26rem] cursor-pointer grid-rows-[18rem_20rem] overflow-hidden rounded-lg bg-[#262626] transition-all hover:scale-110'
+		>
 			<div
 				className={cn('flex items-center justify-center')}
 				style={{backgroundColor: gitmoji.theme}}
