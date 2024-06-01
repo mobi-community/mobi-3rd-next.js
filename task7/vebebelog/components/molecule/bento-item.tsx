@@ -19,6 +19,7 @@ export function BentoItem({gitmoji}: TBentoItem) {
 			toastKey: asset.id,
 			title: asset.code,
 			body: `${asset.emoji} 를 복사했습니다.`,
+			bgColor: asset.theme,
 		})
 	}
 

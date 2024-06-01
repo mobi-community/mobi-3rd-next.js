@@ -23,11 +23,12 @@ export const ToastProvider = ({children}: PropsWithChildren) => {
 	>([])
 
 	const onOpen = (attribute: ComponentProps<typeof Toast>) => {
-		console.log('test')
-		setToastAttributes((prev) => {
-			const _prev = [...prev]
-			_prev.push(attribute)
-			return _prev
+		setToastAttributes((prevs) => {
+			const _prevs = prevs.filter(
+				(prev) => prev.toastKey !== attribute.toastKey,
+			)
+			_prevs.push(attribute)
+			return _prevs
 		})
 	}
 

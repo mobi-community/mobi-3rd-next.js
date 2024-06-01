@@ -30,11 +30,15 @@ export function Toast({title, body, bgColor = '#27AA9F'}: ToastPT) {
 			unmountOnExit
 		>
 			<div
-				className='fixed bottom-3 right-3 z-10 grid  h-32 w-96 grid-rows-2 rounded-xl'
+				className='fixed bottom-3 right-3 z-10 grid  h-32 w-96 grid-rows-2 rounded-xl p-2'
 				style={{backgroundColor: bgColor}}
 			>
-				<Typography type='title3'>{title}</Typography>
-				<Typography type='body3'>{body}</Typography>
+				<Typography type='title3' className='drop-shadow-md'>
+					{title}
+				</Typography>
+				<Typography type='caption1' className='drop-shadow-2xl'>
+					{body}
+				</Typography>
 			</div>
 		</CSSTransition>
 	)
