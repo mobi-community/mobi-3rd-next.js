@@ -5,6 +5,7 @@ import type {HTMLAttributes} from 'react'
 const emojiVariants = cva('text-center', {
 	variants: {
 		size: {
+			'4xl': 'text-[65px]',
 			'3xl': 'text-[55px]',
 			'2xl': 'text-[40px]',
 			xl: 'text-[30px]',
