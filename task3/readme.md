@@ -206,3 +206,27 @@ export default function Page() {
 ```tsx
 placeholder = 'empty' // "empty" | "blur" | "data:image/..."
 ```
+- Next/Image를 사용하기전에는 이미지가 로드되기전까지 너비가 잡히지않다가 이미지가 로드된 후에 이미지 너비만큼 늘어나서 레이아웃이 흔들리는현상 (Cumulative Layout Shift)가 생겼다.
+- 이를 방지하기 위해  Next/Image는 placeholder를 제공한다.
+- placeholder는 빈 영역 또는 blur 이미지로 적용할 수도 있고, 커스텀 하게 설정할 수도 있다.
+
+```tsx
+import Image from 'next/image';
+import myImage from '../public/myImage.jpg';
+
+const MyComponent = () => {
+  return (
+    <div>
+      <Image
+        src={myImage}
+        alt="My Image"
+        width={500}
+        height={300}
+        placeholder="blur"
+        blurDataURL="data:image/jpeg;base64,/9j"
+      />
+    </div>
+  );
+};
+export default MyComponent;
+```
