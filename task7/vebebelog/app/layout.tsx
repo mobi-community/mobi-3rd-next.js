@@ -1,4 +1,5 @@
 import {Header} from '@/components/molecule/header'
+import {ToastProvider} from '@/context/toast-store'
 import type {Metadata} from 'next'
 import type {ReactNode} from 'react'
 import '../global.css'
@@ -16,8 +17,10 @@ export default function RootLayout({
 	return (
 		<html lang='en' className='h-full w-full'>
 			<body>
-				<Header />
-				{children}
+				<ToastProvider>
+					<Header />
+					{children}
+				</ToastProvider>
 			</body>
 		</html>
 	)

@@ -11,14 +11,11 @@ import path from 'path'
 
 export default async function Page() {
 	const gitmojis = getAllGitmoji()
-
-	// console.log(assets)
 	return (
 		<div className='flex w-full justify-center'>
 			<main className='flex max-w-[1200px] flex-col items-center gap-12 py-12'>
 				<SearchBar />
 				<BentoMenu {...{gitmojis}} />
-				<span className='Large'></span>
 			</main>
 		</div>
 	)

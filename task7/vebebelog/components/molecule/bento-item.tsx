@@ -1,3 +1,5 @@
+'use client'
+import {useToast} from '@/context/toast-store'
 import {cn} from '@/lib/tailwind-css'
 import {TGitmojiInfo} from '@/types'
 import {HTMLAttributes} from 'react'
@@ -8,10 +10,23 @@ type TBentoItem = HTMLAttributes<HTMLParagraphElement> & {
 	gitmoji: TGitmojiInfo
 }
 
-export function BentoItem({gitmoji, ...props}: TBentoItem) {
+export function BentoItem({gitmoji}: TBentoItem) {
+	const {onOpen} = useToast()
+
+	const onCopyGitmoji = (asset: TGitmojiInfo) => {
+		if (navigator.clipboard) navigator.clipboard.writeText(asset.code)
+		onOpen({
+			toastKey: asset.id,
+			title: asset.code,
+			body: `${asset.emoji} 를 복사했습니다.`,
+		})
+	}
+
 	return (
 		<article
-			{...props}
+			onClick={() => {
+				onCopyGitmoji(gitmoji)
+			}}
 			className='grid w-[26rem] cursor-pointer grid-rows-[18rem_20rem] overflow-hidden rounded-lg bg-[#262626] transition-all hover:scale-110'
 		>
 			<div

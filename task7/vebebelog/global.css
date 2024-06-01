@@ -24,7 +24,7 @@
 		box-sizing: border-box;
 
 		@apply scrollbar;
-		@apply text-black;
+		@apply text-white;
 	}
 	html {
 		@apply bg-[#121212];
@@ -34,4 +34,22 @@
 		@apply w-auto;
 		@apply h-auto;
 	}
+}
+
+.toast-enter {
+	opacity: 0;
+}
+
+.toast-enter-active {
+	opacity: 1;
+	transition-duration: 500ms;
+}
+
+.toast-exit {
+	opacity: 1;
+}
+
+.toast-exit-active {
+	opacity: 0;
+	transition-duration: 500ms;
 }
